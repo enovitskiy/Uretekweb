@@ -49,13 +49,13 @@ jQuery(function ($) {
 	if ($('#map').length > 0) {
 
 		var contactmap = {
-			lat: 40.742964,
-			lng: -73.992277
+			lat: 53.936387,
+			lng: 27.578573
 		};
 
 		$('#map')
 			.gmap3({
-				zoom: 13,
+				zoom: 16,
 				center: contactmap,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				scrollwheel: false
@@ -67,7 +67,7 @@ jQuery(function ($) {
 
 			.infowindow({
 				position: contactmap,
-				content: "NYC Seminar and Conference Center, New York"
+				content: "ООО Граундтек"
 			})
 
 			.then(function (infowindow) {

@@ -1079,7 +1079,7 @@ ul.navbar-nav>li.header-get-a-quote:hover>a:after {
 /*-- Main slide --*/
 
 #main-slide .item {
-    min-height: 700px;
+    min-height: 300px;
     color: #fff;
     background-position: 50% 50%;
     -webkit-background-size: cover;

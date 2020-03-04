@@ -25,6 +25,8 @@ urlpatterns = [
 
     re_path(r'(?P<slug>\w+)/(?P<sslug>\w+)/(?P<ssslug>\w*)/$', views.example),
     re_path(r'(?P<slug>\w+)/(?P<sslug>\w*)/$', views.construction),
+    re_path(r'^contact/$', views.contactform),
+    re_path(r'^thanks/$', views.thanks),
     re_path(r'(?P<slug>\w+)/$', views.main),
 
 ]

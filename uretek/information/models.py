@@ -1,35 +1,26 @@
 from django.db import models
 from django.db.models import CharField
 
-class Navconstruct(models.Model):
+class Common(models.Model):
     name = models.CharField(max_length=30)
     slug = models.SlugField(null=True, unique=True)
     section = models.TextField(null=True)
     template_name: CharField = models.CharField(max_length=30, null=True, )
+    class Meta:
+        abstract = True
 
+class Navconstruct(Common):
     def __str__(self):
         return self.name
 
-
-class Subnavigator(models.Model):
-    name = models.CharField(max_length=30)
-    slug = models.SlugField(null=True, unique=True)
-    section = models.TextField(null=True)
-    template_name: CharField = models.CharField(max_length=30,null=True,)
+class Subnavigator(Common):
     subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="sub", null=True, blank=True)
     projname = models.ForeignKey('Footercont', on_delete=models.CASCADE, related_name="project", null=True, blank=True)
-
     def __str__(self):
         return self.name
 
-class Subsubnav(models.Model):
-    name = models.CharField(max_length=30)
-    slug = models.SlugField(null=True, unique=True)
-    section = models.TextField(null=True)
-    template_name: CharField = models.CharField(max_length=30,null=True,)
+class Subsubnav(Common):
     subname = models.ForeignKey('Subnavigator', on_delete=models.CASCADE, related_name="sub", null=True)
-
-
     def __str__(self):
         return self.name
 
@@ -86,24 +77,7 @@ class Slider(models.Model):
     def __str__(self):
         return self.name
 
-class Pagenext(models.Model):
-    subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="next", null=True)
-    projname = models.ForeignKey('Subnavigator', on_delete=models.CASCADE, related_name="subnext", null=True, blank=True)
-    title = models.CharField(max_length=100, blank=True)
-    urljpg = models.CharField(max_length=100, blank=True)
-    textup = models.TextField(blank=True)
-    quote = models.TextField(blank=True)
-    textdown = models.TextField(blank=True)
-    urlvideo = models.URLField(max_length=100, blank=True)
-    blockquote = models.TextField(blank=True)
-    paragraph = models.TextField(blank=True)
-    titlenext = models.CharField(max_length=30, blank=True)
-    textnext = models.TextField(blank=True)
-    titlecoloumn = models.CharField(max_length=100, blank=True)
-    titleparagraph = models.CharField(max_length=100, blank=True)
 
-    def __str__(self):
-        return self.title
 
 class Projects(models.Model):
     subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="proj", null=True)
@@ -147,24 +121,98 @@ class Short(models.Model):
     site = models.CharField(max_length=100)
     nameduration = models.CharField(max_length=30)
     duration = models.CharField(max_length=100)
-
     def __str__(self):
         return self.name.projectname
 
-class Pageproject(models.Model):
+class CommonInfo(models.Model):
+    urlvideo = models.URLField(max_length=100, blank=True)
+    blockquote = models.TextField(blank=True)
+    paragraph = models.TextField(blank=True)
+    titlenext = models.CharField(max_length=30, blank=True)
+    textnext = models.TextField(blank=True)
+    titlecoloumn = models.CharField(max_length=100, blank=True)
+    titleparagraph = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        abstract = True
+
+class Pagenext(CommonInfo):
+    subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="next", null=True)
+    projname = models.ForeignKey('Subnavigator', on_delete=models.CASCADE, related_name="subnext", null=True, blank=True)
+    title = models.CharField(max_length=100, blank=True)
+    urljpg = models.CharField(max_length=100, blank=True)
+    textup = models.TextField(blank=True)
+    quote = models.TextField(blank=True)
+    textdown = models.TextField(blank=True)
+    def __str__(self):
+        return self.title
+
+class Pageproject(CommonInfo):
     name = models.ForeignKey('Example', on_delete=models.CASCADE, related_name="pageproject", null=True)
-    urlvideo1 = models.URLField(max_length=100, blank=True)
-    blockquote1 = models.TextField(blank=True)
-    paragraph1 = models.TextField(blank=True)
-    titlenext1 = models.CharField(max_length=30, blank=True)
-    textnext1 = models.TextField(blank=True)
-    titlecoloumn1 = models.CharField(max_length=100, blank=True)
-    titleparagraph1 = models.CharField(max_length=100, blank=True)
-
     def __str__(self):
         return self.name.projectname
 
+class Faqblock (models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
+class Faq (models.Model):
+    name = models.ForeignKey('Faqblock',on_delete=models.CASCADE, related_name="faq", null=True)
+    question = models.CharField(max_length=200)
+    answer = models.TextField(blank=True)
+    def __str__(self):
+        return self.question
+
+class Commoncontact(models.Model):
+    name = models.CharField(max_length=50)
+    answer = models.TextField(blank=True)
+    class Meta:
+        abstract = True
+
+class Contact (Commoncontact):
+    icon = models.CharField(max_length=50, blank=True)
+    def __str__(self):
+        return self.name
+
+class Contdecr (models.Model):
+    title1 = models.CharField(max_length=100, blank=True)
+    title2 = models.CharField(max_length=100, blank=True)
+    title3 = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.title1
+
+class Pictslider(models.Model):
+    hreflogo = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.hreflogo
+
+class Textslider(models.Model):
+    picture = models.ForeignKey('Pictslider',on_delete=models.CASCADE, related_name="picture", null=True)
+    textblock =models.TextField(blank=True)
+    textbldown = models.TextField(blank=True)
+    clas = models.CharField(max_length=20, blank=True)
+
+
+    def __str__(self):
+        return self.picture.hreflogo
+
+class Mpage(models.Model):
+    name = models.CharField(max_length=30, blank=True)
+    title = models.CharField(max_length=100, blank=True)
+    textblock =models.TextField(blank=True)
+    title1 = models.CharField(max_length=100, blank=True)
+    textblock1 = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+class Values (Commoncontact):
+    icon = models.CharField(max_length=50, blank=True)
+    def __str__(self):
+        return self.name
 
 
 # Create your models here.

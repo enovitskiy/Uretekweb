@@ -34,12 +34,12 @@
                             <div class="info-box last">
                                 <div class="info-box-content">
                                     <p class="info-box-title">Лицензионный сайт</p>
-                                    <p class="info-box-subtitle">uretekbelarus.com</p>
+                                   <a href="https://uretekbelarus.com/"> <p class="info-box-subtitle">uretekbelarus.com</p></a>
                                 </div>
                             </div>
                         </li>
                         <li class="header-get-a-quote">
-                            <a class="btn btn-primary" href="contact.html">Узнать цену</a>
+                            <a class="btn btn-primary" href="/contact/#order">Консультация</a>
                         </li>
                     </ul><!-- Ul end -->
                 </div><!-- header right end -->
@@ -78,8 +78,12 @@
     <!--/ Navigation end -->
 </header>
 <!--/ Header end -->
-
+{% if page  %}
 <div id="banner-area" class="banner-area" style="background-image:url({% static 'constra-free/themes/constra free/images/banner/banner1.jpg' %})">
+    {% else %}
+<div>
+    {% endif %}
+
     {% if path0  %}
   <div class="banner-text">
      <div class="container">
@@ -95,5 +99,6 @@
            </div><!-- Col end -->
         </div><!-- Row end -->
      </div><!-- Container end -->
-  </div><!-- Banner text end -->{% endif %}
+  </div><!-- Banner text end -->
+    {% endif %}
 </div><!-- Banner area end -->

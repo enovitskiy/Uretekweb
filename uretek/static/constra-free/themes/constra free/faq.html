@@ -1,4 +1,5 @@
 {% include 'head.html' %}
+{% load staticfiles %}
 
 <body>
 
@@ -13,97 +14,32 @@
 
          <div class="row">
             <div class="col-md-8">
-               <h3 class="border-title border-left mar-t0">Construction general</h3>
 
-               <div class="panel-group panel-classic" id="accordionA">
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                         <h4 class="panel-title"> 
-                           <a data-toggle="collapse" data-parent="#accordionA, #accordionB" href="#collapseOne">
-                           Does the law require head protection on construction sites?</a> 
-                         </h4>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse in">
-                           <div class="panel-body">
-                           <p>A first-aider is someone who has undertaken training and has a qualification that HSE approves. This means that they must hold a valid certificate of competence in either:</p>
-                        </div>
-                      </div>
-                  </div><!--/ Panel 1 end-->
+               <h3 class="border-title border-left mar-t0">{{ faq.name}}</h3>
 
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                         <h4 class="panel-title">
-                           <a data-toggle="collapse" class="collapsed" data-parent="#accordionA, #accordionB" href="#collapseTwo">What are the first aid requirements for sites?</a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Anemi nim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com modo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupid henderit in voluptate velit esse cillu oris nisi ut aliquip ex ea com matat.</p>
-                        </div>
-                      </div>
-                  </div><!--/ Panel 2 end-->
-
-                  <div class="panel panel-default">
-                     <div class="panel-heading">
-                         <h4 class="panel-title">
-                         <a data-toggle="collapse" class="collapsed" data-parent="#accordionA, #accordionB" href="#collapseThree">What is an appointed person?</a> 
-                        </h4>
-                     </div>
-                     <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        </div>
-                     </div>
-                  </div><!--/ Panel 3 end-->
-
-               </div><!-- Accordion end -->
-
-               <div class="gap-40"></div>
-
-               <h3 class="border-title border-left">Safety</h3>
-
+                {% for faq in faq.faq.all%}
                <div class="panel-group panel-classic" id="accordionB">
+
                   <div class="panel panel-default">
                       <div class="panel-heading">
-                         <h4 class="panel-title"> 
-                           <a data-toggle="collapse" data-parent="#accordionA, #accordionB" href="#collapseA">
-                           Mauris rhoncus pretium porttitor cras scelerisque commodo odio ?</a> 
+                         <h4 class="panel-title">
+                           {% if forloop.counter == 1  %}
+                           <a data-toggle="collapse" data-parent="#accordionA, #accordionB" href="#collapseOne">
+                           {% else %}<a data-toggle="collapse" class="collapsed" data-parent="#accordionA, #accordionB" href="#collapse{{ forloop.counter }}">{% endif %}
+                           {{ forloop.counter }}. {{ faq.question|safe }}</a>
                          </h4>
-                      </div>
-                      <div id="collapseA" class="panel-collapse collapse in">
+                      </div>{% if forloop.counter == 1  %}
+                      <div id="collapseOne" class="panel-collapse collapse in">
+                      {% else %}<div id="collapse{{ forloop.counter }}" class="panel-collapse collapse"> {% endif %}
                            <div class="panel-body">
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever printer took a galley of type and scrambled it to make a type specimen book.</p>
+                           {{ faq.answer|safe }}
                         </div>
                       </div>
                   </div><!--/ Panel 1 end-->
 
-                  <div class="panel panel-default">
-                      <div class="panel-heading">
-                         <h4 class="panel-title">
-                           <a data-toggle="collapse" class="collapsed" data-parent="#accordionA, #accordionB" href="#collapseB">Lutpat consequat estibulum ante ipsum primis in faucibu ?    </a>
-                        </h4>
-                      </div>
-                      <div id="collapseB" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Anemi nim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com modo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupid henderit in voluptate velit esse cillu oris nisi ut aliquip ex ea com matat.</p>
-                        </div>
-                      </div>
-                  </div><!--/ Panel 2 end-->
 
-                  <div class="panel panel-default">
-                     <div class="panel-heading">
-                         <h4 class="panel-title">
-                         <a data-toggle="collapse" class="collapsed" data-parent="#accordionA, #accordionB" href="#collapseC">Donec volutpat diam nec quam sagittis uenot egestas libero ? </a> 
-                        </h4>
-                     </div>
-                     <div id="collapseC" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        </div>
-                     </div>
-                  </div><!--/ Panel 3 end-->
+               </div><!-- Accordion end -->{% endfor %}
 
-               </div><!-- Accordion end -->
 
             </div><!-- Col end -->
 
@@ -111,44 +47,27 @@
 
                <div class="sidebar sidebar-right">
                   <div class="widget recent-posts">
-                     <h3 class="widget-title">Recent Posts</h3>
+                     <h3 class="widget-title">{{ title.name}}</h3>
+
                      <ul class="unstyled clearfix">
+
+                      {% for example in projects %}
                         <li>
+
                           <div class="posts-thumb pull-left"> 
-                              <a href="#"><img alt="img" src="images/news/news1.jpg"></a>
+                              <a href="#"><img alt="img" src="{% static example.src %}" ></a>
                           </div>
+
                           <div class="post-info">
                               <h4 class="entry-title">
-                                 <a href="#">We Just Completes $17.6 Million Medical Clinic In Mid-missouri</a>
+                                 <a href="/{{ path0.slug }}/example/{{ example.slug }}">{{ example.projectname}}</a>
                               </h4>
                           </div>
+
                           <div class="clearfix"></div>
                         </li><!-- 1st post end-->
 
-                        <li>
-                          <div class="posts-thumb pull-left"> 
-                              <a href="#"><img alt="img" src="images/news/news2.jpg"></a>
-                          </div>
-                          <div class="post-info">
-                              <h4 class="entry-title">
-                                 <a href="#">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
-                              </h4>
-                          </div>
-                          <div class="clearfix"></div>
-                        </li><!-- 2nd post end-->
-
-                        <li>
-                          <div class="posts-thumb pull-left"> 
-                              <a href="#"><img alt="img" src="images/news/news3.jpg"></a>
-                          </div>
-                          <div class="post-info">
-                              <h4 class="entry-title">
-                                 <a href="#">Silicon Bench And Cornike Begin Construction Solar Facilities</a>
-                              </h4>
-                          </div>
-                          <div class="clearfix"></div>
-                        </li><!-- 3rd post end-->
-
+                            {% endfor %}
                      </ul>
                      
                   </div><!-- Recent post end -->
