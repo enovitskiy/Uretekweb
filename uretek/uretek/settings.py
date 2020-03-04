@@ -53,6 +53,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'uretek.urls'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ugeopolimer@gmail.com'
+EMAIL_HOST_PASSWORD = '21023040'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'ugeopolimer@gmail.com'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

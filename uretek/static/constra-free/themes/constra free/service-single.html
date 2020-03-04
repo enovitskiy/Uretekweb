@@ -7,7 +7,7 @@
 		{% include 'social.html' %}
         {% include 'header.html' %}
 <section id="main-container" class="main-container">
-   {% for v in exam %}
+   {% for v in sspage %}
       <div class="container">
 
          <div class="row">
@@ -29,11 +29,11 @@
                <ul class="project-info unstyled">
                   <li>
                      <div class="project-info-label">{{ short.namecategory}}</div>
-                     <div class="project-info-content">{{ short.caregory|safe }}</div>
+                     <div class="project-info-content">{{ short.caregory}}</div>
                   </li>
                   <li>
                      <div class="project-info-label">{{ short.namefokus}}</div>
-                     <div class="project-info-content">{{ short.fokus|safe }}</div>
+                     <div class="project-info-content">{{ short.fokus}}</div>
                   </li>
                   <li>
                      <div class="project-info-label">{{ short.namesite }}</div>
@@ -45,7 +45,7 @@
                   </li>
                   <li>
                      <div class="project-link">
-                        <a class="btn btn-primary" target="_blank" href="#">View Project</a>
+                        <a class="btn btn-primary"  target="_self" href="/contact/#order">Бесплатная консультация</a>
                      </div>
                   </li>
                </ul>
@@ -58,7 +58,38 @@
       </div><!-- Conatiner end -->
    {% endfor %}
    </section><!-- Main container end -->
+   <section id="main-container" class="main-container">
+      {% for v in sspage %}
 
+      <div class="container">
+         {% for subv in v.pageproject.all%}
+
+         <div class="row">
+
+            <div class="col-md-6">
+               <h3 class="column-title">{{ subv.titlenext}}</h3>
+
+               <h1>{{ subv.titlecoloumn}}</h1>
+
+               {{ subv.textnext|safe}}
+            </div><!--/ Col end -->
+
+            <div class="col-md-6">
+               <h3 class="column-title">{{ subv.titleparagraph}}</h3>
+                <div class="embed-responsive">
+         <!-- Change the url -->
+              <iframe src="{{ subv.urlvideo }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  width="500" height="281" allowfullscreen></iframe>
+
+               </div>
+                {{ subv.paragraph|safe}}
+               <div class="gap-20"></div>
+                {{ subv.blockquote|safe}}
+                  </div><!--/ Col end -->
+              </div><!-- Content row 1 -->
+         {% endfor %}
+      </div><!-- Container end -->
+      {% endfor %}
+   </section>
 
 
 {% include 'footer.html' %}
