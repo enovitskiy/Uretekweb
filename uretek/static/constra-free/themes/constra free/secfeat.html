@@ -32,9 +32,9 @@
                 <h3 class="into-sub-title">{{ Mpage.title1 }}</h3>
                 {{ Mpage.textblock1|safe}}
 
-
+                 {% for faq in faq.faq.all%}
                 <div class="panel-group" id="accordion">
-                    {% for faq in faq.faq.all%}
+
 
                     <div class="panel panel-default">
                         <div class="panel-heading">

@@ -3,13 +3,15 @@ from django.db.models import CharField
 
 class Common(models.Model):
     name = models.CharField(max_length=30)
-    slug = models.SlugField(null=True, unique=True)
+    slug = models.SlugField(null=True, unique=True, blank=True)
     section = models.TextField(null=True)
     template_name: CharField = models.CharField(max_length=30, null=True, )
+    hreflogo = models.CharField(max_length=100, blank=True)
     class Meta:
         abstract = True
 
 class Navconstruct(Common):
+
     def __str__(self):
         return self.name
 

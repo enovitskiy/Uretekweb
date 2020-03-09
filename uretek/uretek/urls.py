@@ -22,7 +22,6 @@ from information import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^$', views.main),
-
     re_path(r'(?P<slug>\w+)/(?P<sslug>\w+)/(?P<ssslug>\w*)/$', views.example),
     re_path(r'(?P<slug>\w+)/(?P<sslug>\w*)/$', views.construction),
     re_path(r'^contact/$', views.contactform),

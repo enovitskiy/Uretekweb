@@ -4,7 +4,12 @@ from .forms import ContactForm
 from django.template.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
-import request
+from django.conf import settings
+import json
+
+
+
+
 
 def example(request, slug,sslug,ssslug):
     response = {}
@@ -38,6 +43,8 @@ def construction(request, slug,sslug='empty'):
     response.update(csrf(request))
     response['nav'] = Navconstruct.objects.all()
     response['subnav'] = Subnavigator.objects.all()
+    if sslug == 'slub':
+        response['faq'] = [Faqblock.objects.get(name='Deep')][0]
     if slug:
         response['page'] = [Navconstruct.objects.get(slug=slug)]
     else:
@@ -57,7 +64,7 @@ def construction(request, slug,sslug='empty'):
     return render(request, 'bi.html', response)
 
 
-def main(request, slug=None):
+def main(request, slug = "fundament"):
     response = {}
     response.update(csrf(request))
     response['nav'] = Navconstruct.objects.all()
@@ -66,7 +73,7 @@ def main(request, slug=None):
     if slug:
         response['page'] = [Navconstruct.objects.get(slug=slug)]
     else:
-        response['page'] = None
+        response['page'] = False
     response['info'] = Social.objects.filter(social=False)
     response['social'] = Social.objects.filter(social=True)
     response['footer'] = Footer.objects.all()
@@ -79,23 +86,27 @@ def main(request, slug=None):
         response['faq'] = [Faqblock.objects.get(name='Основная страница')][0]
 
     response['title'] = [Navconstruct.objects.get(slug="company")][0]
-    if slug == None:
-        response['Mpage'] = [Mpage.objects.get()][0]
-        response['Values'] = Values.objects.all()
-
-
-
-
     if slug:
         response['path0'] = [Navconstruct.objects.get(slug=slug)][0]
     else:
-        response['path0'] = None
+        response['path0'] = False
+    if slug == 'fundament':
+        response['Mpage'] = [Mpage.objects.get()][0]
+        response['Values'] = Values.objects.all()
+        response['page'] = False
+        response['path0'] = False
+
+
+
+
+
+
     return render(request, 'bi.html', response)
 
 # Функция формы обратной связи
+
 def contactform(reguest, slug = 'contact'):
-    response = {}
-    response.update(csrf(request))
+
     nav = Navconstruct.objects.all()
     page = [Navconstruct.objects.get(slug=slug)]
     contdecr = [Contdecr.objects.get()][0]
@@ -104,7 +115,7 @@ def contactform(reguest, slug = 'contact'):
     social = Social.objects.filter(social=True)
     footer = Footer.objects.all()
     foot = Footercont.objects.all()
-    thanks = 'thanks'
+
     if slug:
         path0 = [Navconstruct.objects.get(slug=slug)][0]
     else:
@@ -123,6 +134,25 @@ def contactform(reguest, slug = 'contact'):
 
             recepients = ['ugeopolimer@gmail.com']
             # Если пользователь захотел получить копию себе, добавляем его в список получателей
+            ''' Begin reCAPTCHA validation 
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            
+            if result['success']:
+                form.save()
+                messages.success(request, 'New comment added with success!')
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+                End reCAPTCHA validation '''
+
             if copy:
                 recepients.append(sender)
             try:
@@ -137,7 +167,7 @@ def contactform(reguest, slug = 'contact'):
     # Выводим форму в шаблон
     return render(reguest,'bi.html',
             {'form': form, 'info':info, 'social':social, 'footer':footer, 'foot':foot, 'path0':path0,
-            'page' : page, 'nav':nav, 'contdecr' : contdecr, 'contact': contact})
+            'page' : page, 'nav':nav, 'contdecr' : contdecr, 'contact': contact, 'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
 
 
 
@@ -148,8 +178,9 @@ def thanks(reguest):
     social = Social.objects.filter(social=True)
     footer = Footer.objects.all()
     foot = Footercont.objects.all()
+    path0 = [Navconstruct.objects.get(slug='fundament')][0]
     thanks = 'thanks'
-    return render(reguest, 'bi.html', {'page': thanks, 'info':info, 'social':social, 'footer':footer, 'foot':foot})
+    return render(reguest, 'bi.html', {'page': thanks, 'info':info, 'social':social, 'footer':footer, 'foot':foot,'path0':path0})
 
 
 # Create your views here.

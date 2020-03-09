@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'g_recaptcha',
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +61,9 @@ EMAIL_HOST_PASSWORD = '21023040'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'ugeopolimer@gmail.com'
+
+GOOGLE_RECAPTCHA_SITE_KEY = '6Ldl_N4UAAAAADq9WpHY7R8JDLGZ21k81IowFWNR'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Ldl_N4UAAAAAMQE9sjyruN6pb-bB7aeAPNYFpuF'
 
 TEMPLATES = [
     {
