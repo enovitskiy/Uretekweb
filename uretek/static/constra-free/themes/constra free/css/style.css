@@ -1079,7 +1079,7 @@ ul.navbar-nav>li.header-get-a-quote:hover>a:after {
 /*-- Main slide --*/
 
 #main-slide .item {
-    min-height: 300px;
+    min-height: 400px;
     color: #fff;
     background-position: 50% 50%;
     -webkit-background-size: cover;
@@ -1161,6 +1161,8 @@ ul.navbar-nav>li.header-get-a-quote:hover>a:after {
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -1px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #00000078;
 }
 
 .slider-text {
@@ -1479,6 +1481,8 @@ ul.navbar-nav>li.header-get-a-quote:hover>a:after {
     font-weight: 300;
     margin: 0;
     color: #fff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #00000078;
 }
 
 .box-slide-sub-title {
@@ -2707,6 +2711,9 @@ img.testimonial-thumb {
     -webkit-background-size: cover;
     background-size: cover;
     -webkit-backface-visibility: hidden;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #00000078;
+
 }
 
 .banner-title{
@@ -2714,6 +2721,9 @@ img.testimonial-thumb {
     text-transform: uppercase;
     font-size: 58px;
     font-weight: 900;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #00000078;
+}
 }
 
 .banner-text {
@@ -2738,7 +2748,7 @@ img.testimonial-thumb {
     background: none;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 30px;
 }
 
 .breadcrumb a:hover {

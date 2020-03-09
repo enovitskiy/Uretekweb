@@ -16,8 +16,6 @@
                             <div class="info-box">
                                 <div class="info-box-content">
                                     <p class="info-box-title">Звоните Нам</p>
-                                    <p class="info-box-subtitle">+375 44 577 11 66 (VEL)</p>
-                                    <p class="info-box-subtitle">+375 29 577 11 77 (MTC)</p>
                                     <p class="info-box-subtitle">+375 17 331 53 36 (ГОР)</p>
                                 </div>
                             </div>
@@ -78,8 +76,9 @@
     <!--/ Navigation end -->
 </header>
 <!--/ Header end -->
-{% if page  %}
-<div id="banner-area" class="banner-area" style="background-image:url({% static 'constra-free/themes/constra free/images/banner/banner1.jpg' %})">
+{% if spage  %}
+<div id="banner-area" class="banner-area" style="background-image:url({% static path1.hreflogo %})">
+{% elif page  %} <div id="banner-area" class="banner-area" style="background-image:url({% static path0.hreflogo %})">
     {% else %}
 <div>
     {% endif %}

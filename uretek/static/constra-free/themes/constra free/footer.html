@@ -9,20 +9,14 @@
                     <h3 class="widget-title">{{ f.title }}</h3>
                     {% if v.title == 'Type1'  %}  {% for t in f.textsub.all %}
                     <img class="footer-logo" src="{% static 'constra-free/themes/constra free/images/footer-logo.png' %}" alt="" />{{ t.footertext|safe }} {% endfor %}{% endif %}
+                    {% if v.title == 'Type3'  %} <ul class="list-arrow"> {% for t in f.textsub.all %}{{ t.footertext|safe }} {% endfor %}</ul>{% endif %}
 
-                    {% if v.title == 'Type3'  %}
-                    <ul class="list-arrow">
 
-                        {% for project in v.project.all%}
-                        <li><a href="/company/{{ project.slug }}">{{ project.name }}</a></li>{% endfor %}
-
-                    </ul>
-                    {% endif %}
-                    {% if v.title == 'Type3'  %} {% else %}
                         <div class="{{ v.classdiv}}">
+
                             {% if v.title == 'Type2'  %}{% for t in f.textsub.all %}{{ t.footertext|safe }} {% endfor %}{% endif %}
                             {% if v.title == 'Type1'  %} <ul>{% for s in social %}<li> <a href="{{ s.href }}"><i class="{{ s.classname }}"></i></a> </li>{% endfor %}</ul>{% endif %}
-                        </div><!-- Footer social end -->{% endif %}{% endfor %}
+                        </div><!-- Footer social end -->{% endfor %}
                 </div><!-- Col end -->{% endfor %}
 
 
@@ -53,7 +47,7 @@
                 <button class="btn btn-primary" title="Back to Top">
                     <i class="fa fa-angle-double-up"></i>
                 </button>
-            </div>
+
 
         </div><!-- Container end -->
     </div><!-- Copyright end -->
