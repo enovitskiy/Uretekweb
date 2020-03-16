@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'g_recaptcha',
+    'captcha',
+    'snowpenguin.django.recaptcha2',
 
 ]
 
@@ -62,8 +63,12 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'ugeopolimer@gmail.com'
 
-GOOGLE_RECAPTCHA_SITE_KEY = '6Ldl_N4UAAAAADq9WpHY7R8JDLGZ21k81IowFWNR'
-GOOGLE_RECAPTCHA_SECRET_KEY = '6Ldl_N4UAAAAAMQE9sjyruN6pb-bB7aeAPNYFpuF'
+GOOGLE_RECAPTCHA_SITE_KEY = '6LfQiKoUAAAAAJor48wy4W2hz1azU90-J2eEZ--e'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfQiKoUAAAAAGeJFpNpdmGrcQyZ8dPPDB22z0pJ'
+
+RECAPTCHA_PUBLIC_KEY = '6LfQiKoUAAAAAJor48wy4W2hz1azU90-J2eEZ--e'
+RECAPTCHA_PRIVATE_KEY = '6LfQiKoUAAAAAGeJFpNpdmGrcQyZ8dPPDB22z0pJ'
+
 
 TEMPLATES = [
     {
