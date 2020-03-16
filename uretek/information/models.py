@@ -1,12 +1,18 @@
 from django.db import models
 from django.db.models import CharField
 
+
+
 class Common(models.Model):
     name = models.CharField(max_length=30)
     slug = models.SlugField(null=True, unique=True, blank=True)
     section = models.TextField(null=True)
     template_name: CharField = models.CharField(max_length=30, null=True, )
     hreflogo = models.CharField(max_length=100, blank=True)
+    title = models.CharField(max_length=300, blank=True)
+    descrtionmeta = models.TextField(max_length=300, blank=True)
+    keywordsmeta = models.TextField(max_length=300, blank=True)
+
     class Meta:
         abstract = True
 
@@ -98,6 +104,8 @@ class Example(models.Model):
     src = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(null=True, unique=True)
     projectname = models.CharField(max_length=200, blank=True)
+    description = models.TextField(max_length=300, blank=True)
+    keywords = models.TextField(max_length=300, blank=True)
 
 
 

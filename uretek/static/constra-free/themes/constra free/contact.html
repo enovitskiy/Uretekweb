@@ -71,7 +71,8 @@
                   {{ form.copy.errors }}
                   <label for="id_copy">Отправить копию себе {{ form.copy }}</label>
                 </div>
-                <div class="g-recaptcha" data-sitekey="{{GOOGLE_RECAPTCHA_SITE_KEY}}"></div>
+
+                <div class="form-group g-recaptcha" data-sitekey="{{GOOGLE_RECAPTCHA_SITE_KEY}}"></div>
                 <input class="btn btn-primary solid blank" type="submit" value="Отправить"/>
             </form>
    </section><!-- Main container end -->
