@@ -18,9 +18,14 @@ class Common(models.Model):
         abstract = True
 
 class Navconstruct(Common):
+    order= models.IntegerField(null=True, blank=True, verbose_name='Порядок в меню', help_text='последователность отображения в меню')
     class Meta:
         verbose_name = "Раздел"
         verbose_name_plural = "Основное меню"
+        ordering = [
+            "order",
+
+        ]
 
     def __str__(self):
         return self.name

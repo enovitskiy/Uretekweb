@@ -1,0 +1,51 @@
+{% load staticfiles %}
+{% include 'head.html' %}
+<body>
+
+<div class="body-inner">
+
+		{% include 'social.html' %}
+        {% include 'geoheader.html' %}
+
+
+             {% if spage  %} {% for v in spage %}
+
+
+                <section id="main-container" class="main-container">
+                     {% for subv in v.subnext.all%}
+
+                     <div class="container">
+
+                        <div class="row">
+                           <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					            <div class="post">
+
+
+                                  <h3 class="column-title">{{ subv.titlenext}}</h3>
+                                  {{ subv.textnext|safe}}
+                               </div><!--/ Col end -->
+                           </div>
+                               <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+					                <div class="sidebar sidebar-left">
+                                      <h3 class="column-title">{{ subv.titleparagraph}}</h3>
+                                           <div class="isotope-nav" data-isotope-nav="isotope">
+                                               <img src="{% static subv.urljpg %}" class="img-responsive" alt="{{ subv.alt}}">
+                                           </div>
+
+
+                                   </div>
+
+                               </div>
+                        </div></div>
+                      {% endfor %}
+                </section>
+                {% endfor %}{% endif %}
+
+
+
+{% include 'footer.html' %}
+{% include 'script.html' %}
+
+</div><!-- Body inner end -->
+</body>
