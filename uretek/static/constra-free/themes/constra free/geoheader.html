@@ -1,5 +1,6 @@
 {% load staticfiles %}
 <!-- Header start -->
+<link rel="stylesheet" href="{% static 'constra-free/themes/constra free/css/table.css' %}">
 <header id="header" class="header-one">
     <div class="container">
         <div class="row">
@@ -76,28 +77,3 @@
     <!--/ Navigation end -->
 </header>
 <!--/ Header end -->
-{% if spage  %}
-<div id="banner-area" class="banner-area" style="background-image:url({% static path1.hreflogo %})">
-{% elif page  %} <div id="banner-area" class="banner-area" style="background-image:url({% static path0.hreflogo %})">
-    {% else %}
-<div>
-    {% endif %}
-
-    {% if path0  %}
-  <div class="banner-text">
-     <div class="container">
-        <div class="row">
-           <div class="col-xs-12">
-              <div class="banner-heading">
-                 <h1 class="banner-title">{{ path0}}</h1>
-                 <ol class="breadcrumb">
-                    <li>{{ path0}}</li>{% if path1  %}
-                    <li>{{ path1}}</li>{% endif %}
-                 </ol>
-              </div>
-           </div><!-- Col end -->
-        </div><!-- Row end -->
-     </div><!-- Container end -->
-  </div><!-- Banner text end -->
-    {% endif %}
-</div><!-- Banner area end -->

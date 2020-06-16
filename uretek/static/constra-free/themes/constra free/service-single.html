@@ -27,6 +27,7 @@
                <p>{{ short.predescription|safe }} </p>
 
                <ul class="project-info unstyled">
+
                   <li>
                      <div class="project-info-label">{{ short.namecategory}}</div>
                      <div class="project-info-content">{{ short.caregory}}</div>
@@ -43,11 +44,18 @@
                      <div class="project-info-label">{{ short.nameduration }}</div>
                      <div class="project-info-content">{{ short.duration|safe }}</div>
                   </li>
+                  {% for point in shortnew %}
+                  <li>
+                     <div class="project-info-label">{{ point.namecategory}}</div>
+                     <div class="project-info-content">{{ point.caregory}}</div>
+                  </li>
+                  {% endfor %}
                   <li>
                      <div class="project-link">
                         <a class="btn btn-primary"  target="_self" href="/contact/#order">Бесплатная консультация</a>
                      </div>
                   </li>
+
                </ul>
 
 

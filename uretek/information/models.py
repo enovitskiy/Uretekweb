@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import CharField
+from django.urls import reverse
 
 
 
@@ -27,6 +28,10 @@ class Navconstruct(Common):
 
         ]
 
+    def get_absolute_url(self):
+        return reverse('main',
+                       args=[self.slug])
+
     def __str__(self):
         return self.name
 
@@ -36,8 +41,13 @@ class Subnavigator(Common):
         verbose_name_plural = "Подменю"
     subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="sub", null=True, blank=True, verbose_name='Основное меню', help_text='привязка к основному меню')
     projname = models.ForeignKey('Footercont', on_delete=models.CASCADE, related_name="project", null=True, blank=True, verbose_name='Тип подвала', help_text='привязка к подвалу')
+
+    def get_absolute_url(self):
+        return reverse('submain',
+                       args=[self.subname.slug, self.slug])
     def __str__(self):
         return self.name
+
 
 class Subsubnav(Common):
     class Meta:
@@ -145,6 +155,11 @@ class Example(models.Model):
     projectname = models.CharField(max_length=200, blank=True, verbose_name='Название проекта', help_text='название проекта')
     description = models.TextField(max_length=300, blank=True, verbose_name='Описание страницы', help_text='описание страницы в поискаовика')
     keywords = models.TextField(max_length=300, blank=True, verbose_name='Ключевые слова', help_text='ключевые слова для поисковика')
+
+    def get_absolute_url(self):
+        return reverse('example',
+                       args=[self.example.subname.slug, self.example.projname.slug, self.slug])
+
     def __str__(self):
         return self.projectname
 
@@ -175,6 +190,17 @@ class Short(models.Model):
     def __str__(self):
         return self.name.projectname
 
+class Shortnew(models.Model):
+    class Meta:
+        verbose_name = "Краткая информация примера"
+        verbose_name_plural = "Краткая информация примера"
+    name = models.ForeignKey('Example', on_delete=models.CASCADE, related_name="shortnew", null=True, verbose_name='Пример', help_text='привязка к примеру')
+    namecategory = models.CharField(max_length=30, verbose_name='Название категории', help_text='Название категории')
+    caregory = models.CharField(max_length=100, verbose_name='Категория', help_text='Категория')
+
+    def __str__(self):
+        return self.name.projectname
+
 class CommonInfo(models.Model):
     urlvideo = models.URLField(max_length=100, blank=True, verbose_name='URL видео с ютуба', help_text='URL видео с ютуба')
     blockquote = models.TextField(blank=True,verbose_name='Текст', help_text='текст')
@@ -191,6 +217,9 @@ class Pagenext(CommonInfo):
     class Meta:
         verbose_name = "Иинформация страницы"
         verbose_name_plural = "Иинформация страницы"
+        ordering = [
+            "order",
+        ]
     subname = models.ForeignKey('Navconstruct', on_delete=models.CASCADE, related_name="next", null=True, verbose_name='Основное меню', help_text='привязка к основному меню')
     projname = models.ForeignKey('Subnavigator', on_delete=models.CASCADE, related_name="subnext", null=True, blank=True, verbose_name='Подменю', help_text='привязка к подменю')
     title = models.CharField(max_length=100, blank=True,verbose_name='Заголовок3', help_text='заголовок')
@@ -199,6 +228,8 @@ class Pagenext(CommonInfo):
     textup = models.TextField(blank=True,verbose_name='Текст3', help_text='текст')
     quote = models.TextField(blank=True,verbose_name='Текст4', help_text='текст')
     textdown = models.TextField(blank=True,verbose_name='Текст5', help_text='текст')
+    order = models.IntegerField(null=True, blank=True, verbose_name='Порядок в меню',
+                                help_text='последователность отображения в меню')
     def __str__(self):
         return self.title
 
@@ -295,5 +326,12 @@ class Values (Commoncontact):
     icon = models.CharField(max_length=50, blank=True, verbose_name='стиль иконки', help_text='стиль выбирается из https://fontawesome.ru/all-icons/ ')
     def __str__(self):
         return self.name
+
+class Person(models.Model):
+    name0 = models.CharField(blank=True, verbose_name='', help_text='', max_length=100)
+    name = models.TextField('РЕШЕНИЕ URETEK' )
+    name1 = models.TextField('ТРАДИЦИОННОЕ РЕШЕНИЕ',  blank=True,)
+    def __str__(self):
+        return self.name0
 
 # Create your models here.

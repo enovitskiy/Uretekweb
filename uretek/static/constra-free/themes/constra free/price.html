@@ -1,3 +1,4 @@
+{% load render_table from django_tables2 %}
 {% load staticfiles %}
 {% include 'head.html' %}
 <body>
@@ -5,7 +6,7 @@
 <div class="body-inner">
 
 		{% include 'social.html' %}
-        {% include 'header.html' %}
+       {% include 'geoheader.html' %}
 
 
              {% if spage  %} {% for v in spage %}
@@ -39,13 +40,29 @@
                                </div>
                         </div></div>
                       {% endfor %}
-                </section>
-                {% endfor %}{% endif %}
+                    <div class="container" >
+                         <div class="post">
+                        {% render_table table%}
+                         </div>
+                     </div>
+                {% endfor %}
 
 
+  {% endif %}
 
+
+</div>
 {% include 'footer.html' %}
 {% include 'script.html' %}
 
 </div><!-- Body inner end -->
 </body>
+
+
+<!---->
+<!--<div class="body-inner">-->
+
+
+
+
+
