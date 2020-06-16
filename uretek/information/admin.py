@@ -3,7 +3,7 @@ from .models import \
     Subnavigator,Navconstruct,Subsubnav,\
     Social,Footer,Text,Footercont,Page,Slider,\
     Pagenext, Projects, Example, Pictures, \
-    Short, Pageproject,Faqblock, Faq,Contact, Contdecr,Pictslider, Textslider, Mpage, Values
+    Short, Shortnew, Pageproject,Faqblock, Faq,Contact, Contdecr,Pictslider, Textslider, Mpage, Values, Person
 
 class Pagenext(admin.StackedInline):
     model = Pagenext
@@ -46,13 +46,17 @@ class Pictures(admin.StackedInline):
 class Short(admin.StackedInline):
     model = Short
     extra = 0
+class Shortnew(admin.StackedInline):
+    model = Shortnew
+    extra = 0
+
 class Pageproject(admin.StackedInline):
     model = Pageproject
     extra = 0
 
 @admin.register(Example)
 class Example(admin.ModelAdmin):
-    inlines = [Pictures, Short, Pageproject]
+    inlines = [Pictures, Short, Shortnew,Pageproject]
 
 class Faq(admin.StackedInline):
     model = Faq
@@ -85,3 +89,5 @@ admin.site.register(Contdecr)
 
 admin.site.register(Mpage)
 admin.site.register(Values)
+admin.site.register(Projects)
+admin.site.register(Person)

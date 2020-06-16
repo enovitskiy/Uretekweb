@@ -1,13 +1,11 @@
 from django.shortcuts import render
-from .models import Subnavigator,Navconstruct,Social,Footer,Text,Footercont,Example, Faqblock, Contact, Contdecr, Textslider, Mpage, Values
+from .models import Subnavigator,  Person, Shortnew, Navconstruct,Social,Footer,Text,Footercont,Example, Faqblock, Contact, Contdecr, Textslider, Mpage, Values
 from .forms import ContactForm
 from django.template.context_processors import csrf
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
-
-
-
+from .tables import PersonTable
 
 
 def example(request, slug,sslug,ssslug):
@@ -24,6 +22,7 @@ def example(request, slug,sslug,ssslug):
         response['spage'] = None
     if ssslug:
         response['sspage'] = [Example.objects.get(slug=ssslug)]
+        response['shortnew'] = Shortnew.objects.filter(name=Example.objects.get(slug=ssslug))
     else:
         response['sspage'] = None
     response['info'] = Social.objects.filter(social=False)
@@ -40,11 +39,15 @@ def example(request, slug,sslug,ssslug):
 
 
 
+
     return render(request, 'bi.html', response)
 
 def construction(request, slug,sslug='empty'):
     response = {}
     response.update(csrf(request))
+
+    response['table'] = PersonTable(Person.objects.all())
+
     response['nav'] = Navconstruct.objects.all()
     response['subnav'] = Subnavigator.objects.all()
     topic = [Subnavigator.objects.get(slug=sslug)][0]
@@ -75,6 +78,7 @@ def construction(request, slug,sslug='empty'):
 def main(request, slug = 'fundament'):
     response = {}
     response.update(csrf(request))
+
     response['nav'] = Navconstruct.objects.all()
     response['subnav'] = Subnavigator.objects.all()
     response['Textslider'] = Textslider.objects.all()
@@ -84,6 +88,8 @@ def main(request, slug = 'fundament'):
     response['keywords'] = topic.keywordsmeta
     if slug:
         response['page'] = [Navconstruct.objects.get(slug=slug)]
+        response['allexample'] = Example.objects.all().order_by('example')
+
     else:
         response['page'] = False
     response['info'] = Social.objects.filter(social=False)
@@ -186,3 +192,32 @@ def thanks(reguest):
 
 
 # Create your views here.
+
+def price(request):
+    response = {}
+    slug='price'
+    sslug='price'
+    response['nav'] = Navconstruct.objects.all()
+    response['subnav'] = Subnavigator.objects.all()
+    topic = [Subnavigator.objects.get(slug=sslug)][0]
+    response['table'] = PersonTable(Person.objects.all())
+    if slug:
+        response['page'] = [Navconstruct.objects.get(slug=slug)]
+    else:
+        response['page'] = None
+    response['info'] = Social.objects.filter(social=False)
+    if sslug:
+        response['spage'] = [Subnavigator.objects.get(slug=sslug)]
+    else:
+        response['spage'] = None
+    response['info'] = Social.objects.filter(social=False)
+    response['path0'] = [Navconstruct.objects.get(slug=slug)][0]
+    response['path1'] = topic
+    response['social'] = Social.objects.filter(social=True)
+    response['footer'] = Footer.objects.all()
+    response['foot'] = Footercont.objects.all()
+    response['text'] = Text.objects.all()
+    response['topic'] = topic.title
+    response['description'] = topic.descrtionmeta
+    response['keywords'] = topic.keywordsmeta
+    return render(request, 'bi.html', response)

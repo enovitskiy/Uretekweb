@@ -6,7 +6,9 @@
     {% include 'header.html' %}
     <section id="main-container" class="main-container">
       <div class="container">
+
          {% if page  %} {% for v in page %}
+
          <div class="row">
             <div class="col-md-12">
                <div class="isotope-nav" data-isotope-nav="isotope">
@@ -21,8 +23,14 @@
 
 
          <div id="isotope" class="isotope">
-               {% for subv in v.proj.all%}
-             {% for example in subv.example.all%}
+
+
+
+
+
+             {% for example in allexample%}
+
+
 
                <div class="col-md-4 col-sm-6 col-xs-12 {{ example.title }} isotope-item">
                   <div class="isotope-img-container">
@@ -34,19 +42,21 @@
                      <div class="project-item-info">
                         <div class="project-item-info-content">
                            <h3 class="project-item-title">
-                           <a href="/{{ path0.slug }}/example/{{ example.slug }}">{{ example.projectname}} </a>
+                           <a href="{{ example.get_absolute_url }}">{{ example.projectname}}  </a>
                            </h3>
-                           <p class="project-cat">{{ subv.title }}</p>
+                           <p class="project-cat">{{ example.example.title }}</p>
                         </div>
                      </div>
 
                   </div>
 
-               </div><!-- Isotope item 1 end --> {% endfor %}{% endfor %}
+               </div><!-- Isotope item 1 end --> {% endfor %}
+
          </div>
 
       {% endfor %}{% endif %}
       </div><!-- Conatiner end -->
+
    </section><!-- Main container end -->
 {% include 'footer.html' %}
 {% include 'script.html' %}
